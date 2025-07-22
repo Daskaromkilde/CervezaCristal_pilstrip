@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bottle
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: beerCrate
     uniqueID: 2024396311
+    locked: 0
+  - name: bottle
+    uniqueID: 3681072469
     locked: 0

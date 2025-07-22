@@ -8,6 +8,7 @@ public class BottleFall : MonoBehaviour
 {
     private float backgroundMinY;
     private SpriteRenderer bottleRenderer;
+    private Gather gatherScript;
     
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,9 @@ public class BottleFall : MonoBehaviour
         GameObject background = GameObject.Find("placeholderBG");
         SpriteRenderer backgroundRenderer = background.GetComponent<SpriteRenderer>();
         backgroundMinY = backgroundRenderer.bounds.min.y;
+        
+        // Find the Gather script to track missed bottles
+        gatherScript = FindObjectOfType<Gather>();
     }
 
     // Update is called once per frame
@@ -26,10 +30,13 @@ public class BottleFall : MonoBehaviour
         float bottleMinY = bottleRenderer.bounds.min.y;
         if (bottleMinY < backgroundMinY)
         {
+            // Bottle was missed - inform the Gather script
+            if (gatherScript != null)
+            {
+                gatherScript.BottleMissed();
+            }
+            
             Destroy(gameObject);
-            //maybe add counter for destroyed bottle? or this
-            // maybe only is PER bottle, better in spawner maybe
         }
-
     }
 }
