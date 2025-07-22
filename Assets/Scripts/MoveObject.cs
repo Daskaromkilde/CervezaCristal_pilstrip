@@ -5,18 +5,17 @@ using UnityEngine;
 public class MoveObject : MonoBehaviour
 {
     private float xMin, xMax;
+    private float paddingPercentage = 0.86f;
+    public GameObject background; // Assign your background in the inspector
 
     // Start is called before the first frame update
     void Start()
     {
-        // Calculate the world bounds of the camera view
-        float cameraHeight = Camera.main.orthographicSize * 2;
-        float cameraWidth = cameraHeight * Camera.main.aspect;
-        
-        // Get the min/max x values based on camera position
-        xMin = Camera.main.transform.position.x - cameraWidth / 2;
-        xMax = Camera.main.transform.position.x + cameraWidth / 2;
-        
+        // Get the background's bounds
+        Renderer backgroundRenderer = background.GetComponent<Renderer>();
+        Bounds backgroundBounds = backgroundRenderer.bounds;
+        xMax = Mathf.Floor(backgroundBounds.max.x * paddingPercentage);
+        xMin = xMax * -1;
         Debug.Log("X bounds: " + xMin + " to " + xMax);
     }
 
@@ -26,7 +25,7 @@ public class MoveObject : MonoBehaviour
         // Convert screen position to world position 
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        // Clamp the x position to stay within camera bounds - Mathf.Clamp(value, min, max)
+        // Mathf.Clamp(value, min, max)
         float clampedX = Mathf.Clamp(mouseWorldPos.x, xMin, xMax);
         
         // Use only the x component from mouse, keep current y and z
