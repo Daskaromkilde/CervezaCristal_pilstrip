@@ -5,16 +5,26 @@ using UnityEngine;
 public class BottleSpawner : MonoBehaviour
 {
     public GameObject cervezaCristalBottle;
-    public float spawnInterval = 1.0f;
-    private float timer;
-
-    void Update()
+    public float minSpawnInterval = 0.1f; // Minimum time between spawns
+    public float maxSpawnInterval = 0.1f; // Maximum time between spawns
+    
+    void Start()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        // Start the spawning coroutine - independent of frame rate
+        StartCoroutine(SpawnBottlesCoroutine());
+    }
+    
+    IEnumerator SpawnBottlesCoroutine()
+    {
+        while (true) // Infinite loop
         {
-            timer = 0f;
+            // Spawn a bottle
             SpawnBottle();
+
+            // Wait for a random interval (delta time independent)
+            float waitTime = Random.Range(minSpawnInterval, maxSpawnInterval);
+            yield return new WaitForSeconds(waitTime);
+            Debug.Log("test " + waitTime);
         }
     }
 
@@ -22,7 +32,7 @@ public class BottleSpawner : MonoBehaviour
     {
     
         
-        float x = Random.Range(-80f, 80f); // Adjust to your background's width
+        float x = Random.Range(-90f, 88f); // Adjust to your background's width
         float y = 100f; // Above the background
         Vector3 spawnPos = new Vector3(x, y, 0);
         Instantiate(cervezaCristalBottle, spawnPos, Quaternion.identity);
