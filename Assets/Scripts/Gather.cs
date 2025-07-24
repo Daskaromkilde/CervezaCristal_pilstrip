@@ -20,6 +20,7 @@ public class Gather : MonoBehaviour
     private Girl girlScript; // Reference to girl for sprite changes
     private AudioClip beerPourSound;
     private AudioClip level3Sound;
+    private AudioClip loseSound; // Add lose sound reference
     private GameObject glassObject; // Reference to the Glass GameObject
     private GameObject scoreObject; // Reference to the Score GameObject
     private Text scoreText; // Reference to the Text component
@@ -179,6 +180,13 @@ public class Gather : MonoBehaviour
         if (level3Sound == null)
         {
             Debug.LogError("Could not load level3 sound! Make sure it's in Resources/Audio/SFX/level3.ogg");
+        }
+        
+        // Load lose sound
+        loseSound = Resources.Load<AudioClip>("Audio/SFX/Lose");
+        if (loseSound == null)
+        {
+            Debug.LogError("Could not load Lose sound! Make sure it's in Resources/Audio/SFX/Lose.ogg");
         }
         
         // Set initial difficulty for level 1
@@ -441,6 +449,13 @@ public class Gather : MonoBehaviour
     {
         Debug.Log("GAME OVER! You missed " + maxMissedBottles + " bottles!");
         Debug.Log("Final Score - Caught: " + bottlesCaught + ", Missed: " + bottlesMissed);
+        
+        // Play lose sound effect
+        if (loseSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(loseSound);
+            Debug.Log("Playing lose sound effect");
+        }
         
         // Disable player movement to allow UI mouse input
         MoveObject.isGameOver = true;
