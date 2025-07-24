@@ -9,6 +9,13 @@ public class StartMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Create GameData singleton to persist girl selection
+        if (GameData.Instance == null)
+        {
+            GameObject gameDataObject = new GameObject("GameData");
+            gameDataObject.AddComponent<GameData>();
+        }
+        
         CreateGirlSelections();
     }
 

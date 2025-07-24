@@ -30,11 +30,17 @@ public class GirlSelectionButton : MonoBehaviour
     
     void OnMouseDown()
     {
-        // Store selected girl type and advance to game scene
+        // Store selected girl type in both PlayerPrefs and GameData for redundancy
         PlayerPrefs.SetString("SelectedGirlType", girlType);
         PlayerPrefs.Save();
         
-        //Debug.Log("Selected girl type: " + girlType + ", loading game scene...");
+        // Also store in GameData singleton if it exists
+        if (GameData.Instance != null)
+        {
+            GameData.Instance.SetSelectedGirl(girlType);
+        }
+        
+        Debug.Log("Selected girl type: " + girlType + ", loading game scene...");
         
         // Load the game scene (assuming it's at index 1 in Build Settings)
         SceneManager.LoadScene(1);

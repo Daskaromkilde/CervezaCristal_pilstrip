@@ -14,6 +14,11 @@ public class Girl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get selected girl type from PlayerPrefs, default to "Blonde" if none selected
+        string selectedGirlType = PlayerPrefs.GetString("SelectedGirlType", "Blonde");
+        girlType = selectedGirlType;
+        Debug.Log("Loading selected girl type: " + girlType);
+        
         LoadGirlSprites();
         CalculateScaleOnce();
         ShowCurrentSprite();
