@@ -26,11 +26,11 @@ public class StartMenu : MonoBehaviour
             if (testSprite != null)
             {
                 availableGirlTypes.Add(girlType);
-                Debug.Log("Found girl type: " + girlType);
+               // Debug.Log("Found girl type: " + girlType);
             }
         }
         
-        Debug.Log("Found " + availableGirlTypes.Count + " girl types total");
+       // Debug.Log("Found " + availableGirlTypes.Count + " girl types total");
         
         // Load TBA sprite for empty slots
         Sprite tbaSprite = Resources.Load<Sprite>("TBA/ToBeAdded");
@@ -69,13 +69,13 @@ public class StartMenu : MonoBehaviour
                 button.girlType = availableGirlTypes[i];
                 button.spriteRenderer = sr;
                 
-                Debug.Log("Created clickable girl selection " + i + " with " + availableGirlTypes[i] + " at X position " + xPositions[i]);
+               // Debug.Log("Created clickable girl selection " + i + " with " + availableGirlTypes[i] + " at X position " + xPositions[i]);
             }
             else
             {
                 // Use TBA sprite for empty slots (no collider = not clickable)
                 sr.sprite = tbaSprite;
-                Debug.Log("Created TBA selection " + i + " at X position " + xPositions[i]);
+                //Debug.Log("Created TBA selection " + i + " at X position " + xPositions[i]);
             }
             
             // Set position (X from array, Y = 0, Z = 0) and scale = 1
@@ -86,7 +86,7 @@ public class StartMenu : MonoBehaviour
             girlSelections.Add(girlSelection);
         }
         
-        Debug.Log("Created 6 selections: " + availableGirlTypes.Count + " girls + " + (6 - availableGirlTypes.Count) + " TBA placeholders");
+        //Debug.Log("Created 6 selections: " + availableGirlTypes.Count + " girls + " + (6 - availableGirlTypes.Count) + " TBA placeholders");
     }
 
     // Update is called once per frame

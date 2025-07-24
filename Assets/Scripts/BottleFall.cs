@@ -29,7 +29,7 @@ public class BottleFall : MonoBehaviour
             rb.velocity = new Vector2(0, -actualFallSpeed);
         }
         
-        Debug.Log("Bottle falling at speed: " + actualFallSpeed + " (base: " + baseFallSpeed + " + bonus: " + currentFallSpeedBonus + ")");
+       // Debug.Log("Bottle falling at speed: " + actualFallSpeed + " (base: " + baseFallSpeed + " + bonus: " + currentFallSpeedBonus + ")");
         
         // Find the background by name at runtime
         GameObject background = GameObject.Find("placeholderBG");

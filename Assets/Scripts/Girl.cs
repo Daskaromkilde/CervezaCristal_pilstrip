@@ -30,7 +30,7 @@ public class Girl : MonoBehaviour
         girlSprites[2] = Resources.Load<Sprite>(basePath + "3");
         
         // Debug to check if sprites loaded
-        Debug.Log("Loading girl type: " + girlType);
+       // Debug.Log("Loading girl type: " + girlType);
         for (int i = 0; i < girlSprites.Length; i++)
         {
             if (girlSprites[i] == null)
@@ -55,7 +55,7 @@ public class Girl : MonoBehaviour
             float scaleValue = targetHeight / spriteSize.y;
             calculatedScale = new Vector3(scaleValue, scaleValue, 1f);
             
-            Debug.Log("Calculated scale for " + girlType + ": " + calculatedScale);
+            //Debug.Log("Calculated scale for " + girlType + ": " + calculatedScale);
         }
         else
         {
@@ -74,7 +74,7 @@ public class Girl : MonoBehaviour
             // Apply the pre-calculated scale
             transform.localScale = calculatedScale;
             
-            Debug.Log("Showing " + girlType + " sprite " + (currentSprite + 1));
+            //Debug.Log("Showing " + girlType + " sprite " + (currentSprite + 1));
         }
         else
         {
@@ -94,7 +94,7 @@ public class Girl : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    void Update() // TODO THIS NEEDS TO BE REMOVED BEFORE SHIP
     {
         // Change sprite with number keys for testing
         if (Input.GetKeyDown(KeyCode.Alpha1)) 

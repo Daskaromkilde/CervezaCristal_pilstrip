@@ -8,10 +8,22 @@ public class BottleSpawner : MonoBehaviour
     public float minSpawnInterval = 0.1f; // Minimum time between spawns
     public float maxSpawnInterval = 0.1f; // Maximum time between spawns
     
+    private Coroutine spawningCoroutine; // Reference to the spawning coroutine
+    
     void Start()
     {
         // Start the spawning coroutine - independent of frame rate
-        StartCoroutine(SpawnBottlesCoroutine());
+        spawningCoroutine = StartCoroutine(SpawnBottlesCoroutine());
+    }
+    
+    public void StopSpawning()
+    {
+        if (spawningCoroutine != null)
+        {
+            StopCoroutine(spawningCoroutine);
+            spawningCoroutine = null;
+            Debug.Log("BottleSpawner: Stopped spawning bottles");
+        }
     }
     
     IEnumerator SpawnBottlesCoroutine()
@@ -24,7 +36,7 @@ public class BottleSpawner : MonoBehaviour
             // Wait for a random interval (delta time independent)
             float waitTime = Random.Range(minSpawnInterval, maxSpawnInterval);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("test " + waitTime);
+           // Debug.Log("test " + waitTime);
         }
     }
 

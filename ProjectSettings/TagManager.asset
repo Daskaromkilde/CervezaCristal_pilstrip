@@ -54,3 +54,6 @@ TagManager:
   - name: bottle
     uniqueID: 3681072469
     locked: 0
+  - name: Score
+    uniqueID: 2199201069
+    locked: 0

@@ -19,7 +19,7 @@ public class GirlSelectionButton : MonoBehaviour
     {
         // Scale up sprite on hover for "pop out" effect
         transform.localScale = hoverScale;
-        Debug.Log("Hovering over " + girlType);
+       // Debug.Log("Hovering over " + girlType);
     }
     
     void OnMouseExit()
@@ -34,7 +34,7 @@ public class GirlSelectionButton : MonoBehaviour
         PlayerPrefs.SetString("SelectedGirlType", girlType);
         PlayerPrefs.Save();
         
-        Debug.Log("Selected girl type: " + girlType + ", loading game scene...");
+        //Debug.Log("Selected girl type: " + girlType + ", loading game scene...");
         
         // Load the game scene (assuming it's at index 1 in Build Settings)
         SceneManager.LoadScene(1);
