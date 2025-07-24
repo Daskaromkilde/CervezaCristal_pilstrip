@@ -21,6 +21,7 @@ public class Gather : MonoBehaviour
     private AudioClip beerPourSound;
     private AudioClip level3Sound;
     private AudioClip loseSound; // Add lose sound reference
+    private AudioClip ouchSound; // Add ouch sound for missed bottles
     private GameObject glassObject; // Reference to the Glass GameObject
     private GameObject scoreObject; // Reference to the Score GameObject
     private Text scoreText; // Reference to the Text component
@@ -187,6 +188,13 @@ public class Gather : MonoBehaviour
         if (loseSound == null)
         {
             Debug.LogError("Could not load Lose sound! Make sure it's in Resources/Audio/SFX/Lose.ogg");
+        }
+        
+        // Load ouch sound
+        ouchSound = Resources.Load<AudioClip>("Audio/SFX/ouch");
+        if (ouchSound == null)
+        {
+            Debug.LogError("Could not load ouch sound! Make sure it's in Resources/Audio/SFX/ouch.ogg");
         }
         
         // Set initial difficulty for level 1
@@ -401,6 +409,13 @@ public class Gather : MonoBehaviour
     public void BottleMissed()
     {
         bottlesMissed++;
+        
+        // Play ouch sound effect when a bottle is missed
+        if (ouchSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(ouchSound);
+        }
+        
        // Debug.Log("Bottle missed! Total missed: " + bottlesMissed);
         
         // Remove heart sprite based on how many bottles missed
@@ -659,13 +674,24 @@ public class Gather : MonoBehaviour
         MoveObject.isGameOver = false;
         BottleFall.currentFallSpeedBonus = 0f;
         
-        // Force garbage collection to clean up any lingering objects
+        // SIMPLIFIED CACHE CLEARING for build environment
+        Debug.Log("RETRY BUTTON: Simplified cache clearing...");
+        
+        // Clear PlayerPrefs cache but preserve selected girl
+        string selectedGirl = PlayerPrefs.GetString("SelectedGirlType", "Blonde");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetString("SelectedGirlType", selectedGirl);
+        PlayerPrefs.Save();
+        
+        // Single round of cleanup (less aggressive to avoid timing issues)
+        Resources.UnloadUnusedAssets();
         System.GC.Collect();
+        Debug.Log("RETRY BUTTON: Single cleanup completed");
         
         // Ensure Time.timeScale is restored
         Time.timeScale = 1f;
         
-        Debug.Log("RETRY BUTTON: Loading scene 0...");
+        Debug.Log("RETRY BUTTON: Loading scene 0 with selected girl: " + selectedGirl);
         SceneManager.LoadScene(0); // Load the starting screen (scene 0)
     }
     

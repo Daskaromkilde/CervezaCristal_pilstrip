@@ -12,18 +12,41 @@ public class GirlSelectionButton : MonoBehaviour
     void Start()
     {
         originalScale = transform.localScale;
+        
+        // SCALE PROTECTION - Ensure originalScale is never 0 or invalid
+        if (originalScale.x <= 0 || originalScale.y <= 0 || originalScale.z <= 0)
+        {
+            Debug.LogWarning("GirlSelectionButton: Invalid originalScale detected for " + girlType + ", forcing to Vector3.one");
+            originalScale = Vector3.one;
+            transform.localScale = originalScale;
+        }
+        
         hoverScale = originalScale * 1.1f; // 10% larger on hover
     }
     
     void OnMouseEnter()
     {
+        // SCALE PROTECTION - Ensure we have valid scales before applying hover effect
+        if (hoverScale.x <= 0 || hoverScale.y <= 0 || hoverScale.z <= 0)
+        {
+            Debug.LogWarning("GirlSelectionButton: Invalid hoverScale for " + girlType + ", recalculating...");
+            originalScale = Vector3.one;
+            hoverScale = originalScale * 1.1f;
+        }
+        
         // Scale up sprite on hover for "pop out" effect
         transform.localScale = hoverScale;
-       // Debug.Log("Hovering over " + girlType);
     }
     
     void OnMouseExit()
     {
+        // SCALE PROTECTION - Ensure we have valid original scale before restoring
+        if (originalScale.x <= 0 || originalScale.y <= 0 || originalScale.z <= 0)
+        {
+            Debug.LogWarning("GirlSelectionButton: Invalid originalScale for " + girlType + ", forcing to Vector3.one");
+            originalScale = Vector3.one;
+        }
+        
         // Return to original scale
         transform.localScale = originalScale;
     }
